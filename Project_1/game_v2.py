@@ -26,18 +26,14 @@ def random_predict(number: int = 1) -> int:
         shift = int(shift / 2)
         # если смещение уменьшилось до 0, возвращаем ему значение 1, чтобы не попасть 
         # в бесконкечный цикл поиска в одном и том же не изменяемом диапазоне
-        if shift == 0: shift +=1
+        shift = 1 if shift == 0 else shift
         count += 1
+        # Число найдено, выходим из цикла поиска
+        if number == predict_number:
+            break
         # если число меньше предполагаемого, уменьшаем диапазон поиска 
-        # путем уменьшения на расчитанную выше величину shift
-        if number < predict_number:
-            predict_number = predict_number - shift
-        # если число больше предполагаемого, увеличиваем диапазон поиска 
-        # путем увеличения на расчитанную выше величину shift
-        elif number > predict_number:
-            predict_number = predict_number + shift
-        else:
-            break  # выход из цикла если угадали
+        # путем уменьшения на расчитанную выше величину shift и наоборот в случае если больше
+        predict_number = predict_number - shift if number < predict_number else predict_number + shift
     return count
 
 
