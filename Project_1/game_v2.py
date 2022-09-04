@@ -16,16 +16,23 @@ def random_predict(number: int = 1) -> int:
     """
     count = 0
 
+    predict_number = 50
+    shift = predict_number
     while True:
+        shift = int(shift / 2)
+        if shift == 0: shift +=1
         count += 1
-        predict_number = np.random.randint(1, 101)  # предполагаемое число
-        if number == predict_number:
+        if number < predict_number:
+            predict_number = predict_number - shift
+        elif number > predict_number:
+            predict_number = predict_number + shift
+        else:
             break  # выход из цикла если угадали
     return count
 
 
 def score_game(random_predict) -> int:
-    """За какое количство попыток в среднем за 1000 подходов угадывает наш алгоритм
+    """За какое количество попыток в среднем за 1000 подходов угадывает наш алгоритм
 
     Args:
         random_predict ([type]): функция угадывания
